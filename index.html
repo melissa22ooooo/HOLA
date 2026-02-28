@@ -11,7 +11,7 @@
 body{
 background:black;
 color:white;
-font-family:Georgia, serif;
+font-family:Georgia,serif;
 overflow:hidden;
 text-align:center;
 }
@@ -33,6 +33,12 @@ z-index:10;
 #intro h1{
 font-weight:normal;
 opacity:.8;
+animation:latido 2s infinite;
+}
+
+@keyframes latido{
+0%,100%{opacity:.6;}
+50%{opacity:1;}
 }
 
 /* CONTENIDO */
@@ -40,44 +46,53 @@ opacity:.8;
 display:none;
 height:100vh;
 position:relative;
-padding:30px;
 }
 
 .escena{
 position:absolute;
 top:50%;
 left:50%;
-transform:translate(-50%,-50%);
+transform:translate(-50%,-40%);
 width:85%;
 opacity:0;
-transition:2s;
-font-size:1.4em;
+font-size:1.6em;
 line-height:1.6em;
+transition:opacity 2.5s ease, transform 2.5s ease;
 }
 
+.activa{
+opacity:1;
+transform:translate(-50%,-50%);
+}
+
+/* IMÁGENES */
 img{
 width:80%;
 max-width:280px;
-border-radius:20px;
-margin-top:20px;
-box-shadow:0 0 40px rgba(255,255,255,.3);
+border-radius:25px;
+box-shadow:0 0 60px rgba(255,255,255,.4);
+opacity:0;
+transform:scale(.9);
+transition:opacity 3s ease, transform 3s ease;
 }
 
-#final{
-font-size:1.6em;
+.imgActiva{
+opacity:1;
+transform:scale(1);
 }
 
+/* POLLITO FINAL */
 .pollitoFinal{
 position:absolute;
-bottom:20%;
+bottom:25%;
 left:50%;
 transform:translateX(-50%);
-font-size:30px;
+font-size:35px;
 opacity:0;
 transition:3s;
 }
 
-/* Estrellas */
+/* ESTRELLAS */
 canvas{
 position:absolute;
 top:0;
@@ -85,11 +100,10 @@ left:0;
 z-index:-1;
 }
 
+/* Música oculta */
 iframe{
 position:absolute;
-width:0;
-height:0;
-border:0;
+width:0;height:0;border:0;
 }
 </style>
 </head>
@@ -104,72 +118,51 @@ border:0;
 
 <canvas id="estrellas"></canvas>
 
-<!-- ESCENAS -->
-<div class="escena" id="e1">
-Hay personas que no llegan por casualidad…<br>
-llegan cuando el universo decide que es el momento.
-</div>
+<!-- FRASES -->
 
-<div class="escena" id="e2">
-Se llama Luis Alberto.<br>
-Pero para mí…<br>
-siempre será Pio Pio ❤️🐥
-</div>
+<div class="escena">Hay personas que no llegan por casualidad…</div>
+<div class="escena">llegan cuando el universo decide que es el momento.</div>
 
-<div class="escena" id="e3">
-Hombre trabajador.<br>
-Inteligente.<br>
-Directo.<br>
-Leal.<br>
-Inigualable.
-</div>
+<div class="escena">Se llama Luis Alberto.</div>
+<div class="escena">Pero para mí…</div>
+<div class="escena">siempre será Pio Pio ❤️🐥</div>
 
-<div class="escena" id="e4">
-Le gustan las motos.<br>
-Soñar con una Suzuki GSX750<br>
-o una ZX6R.<br><br>
-Le gustan los atardeceres…<br>
-y la luna.
-</div>
+<div class="escena">Hombre trabajador.</div>
+<div class="escena">Inteligente.</div>
+<div class="escena">Directo.</div>
+<div class="escena">Leal.</div>
+<div class="escena">Inigualable.</div>
 
-<div class="escena" id="e5">
-<img src="nota.jpg"><br>
-<img src="pio.jpg">
-</div>
+<div class="escena">Le gustan las motos.</div>
+<div class="escena">Soñar con una Suzuki GSX750.</div>
+<div class="escena">O una ZX6R.</div>
 
-<div class="escena" id="e6">
-<img src="pio2.jpg"><br>
-<img src="pio3.jpg"><br>
-<img src="pio4.jpg">
-</div>
+<div class="escena">Le gustan los atardeceres.</div>
+<div class="escena">Y la luna.</div>
 
-<div class="escena" id="e7">
-Me gusta cuando se emociona.<br>
-Sus ojos.<br>
-Su risa.<br>
-Su voz.<br>
-Su forma de expresarse.
-</div>
+<div class="escena"><img src="nota.jpg"></div>
+<div class="escena"><img src="pio.jpg"></div>
+<div class="escena"><img src="pio2.jpg"></div>
+<div class="escena"><img src="pio3.jpg"></div>
+<div class="escena"><img src="pio4.jpg"></div>
 
-<div class="escena" id="e8">
-Y simplemente…<br>
-es perfecto.
-</div>
+<div class="escena">Me gusta cuando se emociona.</div>
+<div class="escena">Sus ojos.</div>
+<div class="escena">Su risa.</div>
+<div class="escena">Su voz.</div>
+<div class="escena">Su forma de expresarse.</div>
 
-<div class="escena" id="e9">
-No eres casualidad.<br>
-Eres destino.
-</div>
+<div class="escena">Y simplemente…</div>
+<div class="escena">es perfecto.</div>
 
-<div class="escena" id="final">
-Fin.<br>
-Pero lo que se siente…<br>
-no termina.
-</div>
+<div class="escena">No eres casualidad.</div>
+<div class="escena">Eres destino.</div>
 
-<div class="pollitoFinal" id="pollito">
-🐥
-</div>
+<div class="escena">Fin.</div>
+<div class="escena">Pero lo que se siente…</div>
+<div class="escena">no termina.</div>
+
+<div class="pollitoFinal" id="pollito">🐥</div>
 
 <!-- Música -->
 <iframe
@@ -196,32 +189,48 @@ document.getElementById("musica").src=
 /* Iniciar estrellas */
 animar();
 
-/* Mostrar primera escena */
+/* Iniciar escenas */
 mostrarEscena();
 }
 
 function mostrarEscena(){
+
 if(actual>0){
-escenas[actual-1].style.opacity=0;
+escenas[actual-1].classList.remove("activa");
 }
 
 if(actual<escenas.length){
-escenas[actual].style.opacity=1;
+
+let escena=escenas[actual];
+escena.classList.add("activa");
+
+let img=escena.querySelector("img");
+if(img){
+setTimeout(()=>{
+img.classList.add("imgActiva");
+},300);
+}
+
 actual++;
-setTimeout(mostrarEscena,6000);
+setTimeout(mostrarEscena,4000);
+
 }else{
-/* Pollito final */
 let p=document.getElementById("pollito");
 p.style.opacity=1;
-p.style.transform="translate(-50%,-150px)";
+p.style.transform="translate(-50%,-180px)";
 }
 }
 
-/* Estrellas */
+/* ESTRELLAS */
 let canvas=document.getElementById("estrellas");
 let ctx=canvas.getContext("2d");
+
+function ajustarCanvas(){
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
+}
+ajustarCanvas();
+window.addEventListener("resize",ajustarCanvas);
 
 let estrellas=[];
 for(let i=0;i<200;i++){
