@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El chico que mira la luna</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+background:black;
+color:white;
+font-family:Georgia, serif;
+overflow:hidden;
+text-align:center;
+}
+
+/* INTRO */
+#intro{
+position:fixed;
+top:0;left:0;
+width:100%;
+height:100vh;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+z-index:10;
+}
+
+#intro h1{
+font-weight:normal;
+opacity:.8;
+}
+
+/* CONTENIDO */
+#contenido{
+display:none;
+height:100vh;
+position:relative;
+padding:30px;
+}
+
+.escena{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:85%;
+opacity:0;
+transition:2s;
+font-size:1.4em;
+line-height:1.6em;
+}
+
+img{
+width:80%;
+max-width:280px;
+border-radius:20px;
+margin-top:20px;
+box-shadow:0 0 40px rgba(255,255,255,.3);
+}
+
+#final{
+font-size:1.6em;
+}
+
+.pollitoFinal{
+position:absolute;
+bottom:20%;
+left:50%;
+transform:translateX(-50%);
+font-size:30px;
+opacity:0;
+transition:3s;
+}
+
+/* Estrellas */
+canvas{
+position:absolute;
+top:0;
+left:0;
+z-index:-1;
+}
+
+iframe{
+position:absolute;
+width:0;
+height:0;
+border:0;
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro" onclick="iniciar()">
+<h1>Toca para comenzar ✨</h1>
+</div>
+
+<div id="contenido">
+
+<canvas id="estrellas"></canvas>
+
+<!-- ESCENAS -->
+<div class="escena" id="e1">
+Hay personas que no llegan por casualidad…<br>
+llegan cuando el universo decide que es el momento.
+</div>
+
+<div class="escena" id="e2">
+Se llama Luis Alberto.<br>
+Pero para mí…<br>
+siempre será Pio Pio ❤️🐥
+</div>
+
+<div class="escena" id="e3">
+Hombre trabajador.<br>
+Inteligente.<br>
+Directo.<br>
+Leal.<br>
+Inigualable.
+</div>
+
+<div class="escena" id="e4">
+Le gustan las motos.<br>
+Soñar con una Suzuki GSX750<br>
+o una ZX6R.<br><br>
+Le gustan los atardeceres…<br>
+y la luna.
+</div>
+
+<div class="escena" id="e5">
+<img src="nota.jpg"><br>
+<img src="pio.jpg">
+</div>
+
+<div class="escena" id="e6">
+<img src="pio2.jpg"><br>
+<img src="pio3.jpg"><br>
+<img src="pio4.jpg">
+</div>
+
+<div class="escena" id="e7">
+Me gusta cuando se emociona.<br>
+Sus ojos.<br>
+Su risa.<br>
+Su voz.<br>
+Su forma de expresarse.
+</div>
+
+<div class="escena" id="e8">
+Y simplemente…<br>
+es perfecto.
+</div>
+
+<div class="escena" id="e9">
+No eres casualidad.<br>
+Eres destino.
+</div>
+
+<div class="escena" id="final">
+Fin.<br>
+Pero lo que se siente…<br>
+no termina.
+</div>
+
+<div class="pollitoFinal" id="pollito">
+🐥
+</div>
+
+<!-- Música -->
+<iframe
+id="musica"
+src=""
+allow="autoplay">
+</iframe>
+
+</div>
+
+<script>
+
+const escenas=document.querySelectorAll(".escena");
+let actual=0;
+
+function iniciar(){
+document.getElementById("intro").style.display="none";
+document.getElementById("contenido").style.display="block";
+
+/* Activar música */
+document.getElementById("musica").src=
+"https://www.youtube.com/embed/x19bTYCDdRA?autoplay=1&loop=1&playlist=x19bTYCDdRA&controls=0";
+
+/* Iniciar estrellas */
+animar();
+
+/* Mostrar primera escena */
+mostrarEscena();
+}
+
+function mostrarEscena(){
+if(actual>0){
+escenas[actual-1].style.opacity=0;
+}
+
+if(actual<escenas.length){
+escenas[actual].style.opacity=1;
+actual++;
+setTimeout(mostrarEscena,6000);
+}else{
+/* Pollito final */
+let p=document.getElementById("pollito");
+p.style.opacity=1;
+p.style.transform="translate(-50%,-150px)";
+}
+}
+
+/* Estrellas */
+let canvas=document.getElementById("estrellas");
+let ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let estrellas=[];
+for(let i=0;i<200;i++){
+estrellas.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*1.5
+});
+}
+
+function animar(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+estrellas.forEach(e=>{
+ctx.beginPath();
+ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
+ctx.fill();
+});
+requestAnimationFrame(animar);
+}
+
+</script>
+
+</body>
+</html>
