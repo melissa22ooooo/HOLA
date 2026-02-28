@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>El chico que mira la luna</title>
+<title>Nuestro Universo</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-background:black;
+background:radial-gradient(circle at center, #0d0d2b 0%, #000 70%);
 color:white;
 font-family:Georgia,serif;
 overflow:hidden;
@@ -48,6 +48,23 @@ height:100vh;
 position:relative;
 }
 
+/* Nebulosa animada */
+.nebulosa{
+position:absolute;
+width:700px;
+height:700px;
+background:radial-gradient(circle, rgba(150,0,255,.35), transparent 70%);
+filter:blur(140px);
+animation:mover 25s infinite alternate ease-in-out;
+z-index:-2;
+}
+
+@keyframes mover{
+0%{transform:translate(-30%, -20%);}
+100%{transform:translate(30%, 25%);}
+}
+
+/* FRASES */
 .escena{
 position:absolute;
 top:50%;
@@ -68,11 +85,11 @@ transform:translate(-50%,-50%);
 /* IMÁGENES */
 img{
 width:80%;
-max-width:280px;
+max-width:320px;
 border-radius:25px;
-box-shadow:0 0 60px rgba(255,255,255,.4);
+box-shadow:0 0 90px rgba(255,255,255,.6);
 opacity:0;
-transform:scale(.9);
+transform:scale(.85);
 transition:opacity 3s ease, transform 3s ease;
 }
 
@@ -81,13 +98,20 @@ opacity:1;
 transform:scale(1);
 }
 
-/* POLLITO FINAL */
+/* Imagen final especial */
+.finalImagen{
+width:90%;
+max-width:360px;
+box-shadow:0 0 120px rgba(255,200,255,.9);
+}
+
+/* POLLITO */
 .pollitoFinal{
 position:absolute;
-bottom:25%;
+bottom:18%;
 left:50%;
 transform:translateX(-50%);
-font-size:35px;
+font-size:40px;
 opacity:0;
 transition:3s;
 }
@@ -100,7 +124,6 @@ left:0;
 z-index:-1;
 }
 
-/* Música oculta */
 iframe{
 position:absolute;
 width:0;height:0;border:0;
@@ -116,60 +139,37 @@ width:0;height:0;border:0;
 
 <div id="contenido">
 
+<div class="nebulosa"></div>
 <canvas id="estrellas"></canvas>
 
-<!-- FRASES -->
+<!-- FRASES INICIALES -->
 
 <div class="escena">Hay personas que no llegan por casualidad…</div>
 <div class="escena">llegan cuando el universo decide que es el momento.</div>
-
 <div class="escena">Se llama Luis Alberto.</div>
 <div class="escena">Pero para mí…</div>
 <div class="escena">siempre será Pio Pio ❤️🐥</div>
-
-<div class="escena">Hombre trabajador.</div>
-<div class="escena">Inteligente.</div>
-<div class="escena">Directo.</div>
-<div class="escena">Leal.</div>
-<div class="escena">Inigualable.</div>
-
-<div class="escena">Le gustan las motos.</div>
-<div class="escena">Soñar con una Suzuki GSX750.</div>
-<div class="escena">O una ZX6R.</div>
-
-<div class="escena">Le gustan los atardeceres.</div>
-<div class="escena">Y la luna.</div>
-
-<div class="escena"><img src="nota.jpg"></div>
-<div class="escena"><img src="pio.jpg"></div>
-<div class="escena"><img src="pio2.jpg"></div>
-<div class="escena"><img src="pio3.jpg"></div>
-<div class="escena"><img src="pio4.jpg"></div>
-
-<div class="escena">Me gusta cuando se emociona.</div>
-<div class="escena">Sus ojos.</div>
-<div class="escena">Su risa.</div>
-<div class="escena">Su voz.</div>
-<div class="escena">Su forma de expresarse.</div>
-
-<div class="escena">Y simplemente…</div>
-<div class="escena">es perfecto.</div>
-
 <div class="escena">No eres casualidad.</div>
 <div class="escena">Eres destino.</div>
 
-<div class="escena">Fin.</div>
-<div class="escena">Pero lo que se siente…</div>
-<div class="escena">no termina.</div>
+<!-- FOTO DE USTEDES -->
+
+<div class="escena">
+<img src="nosotros.jpg" class="finalImagen">
+</div>
+
+<div class="escena">Y aquí…</div>
+<div class="escena">empieza nuestra historia.</div>
+<div class="escena">Una historia que no nació por suerte…</div>
+<div class="escena">sino porque el universo decidió unirnos.</div>
+
+<div class="escena">Fin…</div>
+<div class="escena">pero lo nuestro apenas comienza.</div>
 
 <div class="pollitoFinal" id="pollito">🐥</div>
 
 <!-- Música -->
-<iframe
-id="musica"
-src=""
-allow="autoplay">
-</iframe>
+<iframe id="musica" src="" allow="autoplay"></iframe>
 
 </div>
 
@@ -182,14 +182,10 @@ function iniciar(){
 document.getElementById("intro").style.display="none";
 document.getElementById("contenido").style.display="block";
 
-/* Activar música */
 document.getElementById("musica").src=
 "https://www.youtube.com/embed/x19bTYCDdRA?autoplay=1&loop=1&playlist=x19bTYCDdRA&controls=0";
 
-/* Iniciar estrellas */
 animar();
-
-/* Iniciar escenas */
 mostrarEscena();
 }
 
@@ -208,36 +204,37 @@ let img=escena.querySelector("img");
 if(img){
 setTimeout(()=>{
 img.classList.add("imgActiva");
-},300);
+},400);
 }
 
 actual++;
-setTimeout(mostrarEscena,4000);
+setTimeout(mostrarEscena,4500);
 
 }else{
 let p=document.getElementById("pollito");
 p.style.opacity=1;
-p.style.transform="translate(-50%,-180px)";
+p.style.transform="translate(-50%,-220px)";
 }
 }
 
-/* ESTRELLAS */
+/* ESTRELLAS ANIMADAS */
 let canvas=document.getElementById("estrellas");
 let ctx=canvas.getContext("2d");
 
-function ajustarCanvas(){
+function ajustar(){
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 }
-ajustarCanvas();
-window.addEventListener("resize",ajustarCanvas);
+ajustar();
+window.addEventListener("resize",ajustar);
 
 let estrellas=[];
-for(let i=0;i<200;i++){
+for(let i=0;i<350;i++){
 estrellas.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-r:Math.random()*1.5
+r:Math.random()*1.2,
+vel:Math.random()*.25
 });
 }
 
@@ -245,6 +242,8 @@ function animar(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="white";
 estrellas.forEach(e=>{
+e.y+=e.vel;
+if(e.y>canvas.height) e.y=0;
 ctx.beginPath();
 ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
 ctx.fill();
