@@ -48,14 +48,14 @@ height:100vh;
 position:relative;
 }
 
-/* Nebulosa animada */
+/* Nebulosa */
 .nebulosa{
 position:absolute;
-width:700px;
-height:700px;
-background:radial-gradient(circle, rgba(150,0,255,.35), transparent 70%);
-filter:blur(140px);
-animation:mover 25s infinite alternate ease-in-out;
+width:800px;
+height:800px;
+background:radial-gradient(circle, rgba(180,0,255,.35), transparent 70%);
+filter:blur(150px);
+animation:mover 30s infinite alternate ease-in-out;
 z-index:-2;
 }
 
@@ -87,7 +87,7 @@ img{
 width:80%;
 max-width:320px;
 border-radius:25px;
-box-shadow:0 0 90px rgba(255,255,255,.6);
+box-shadow:0 0 80px rgba(255,255,255,.6);
 opacity:0;
 transform:scale(.85);
 transition:opacity 3s ease, transform 3s ease;
@@ -101,8 +101,8 @@ transform:scale(1);
 /* Imagen final especial */
 .finalImagen{
 width:90%;
-max-width:360px;
-box-shadow:0 0 120px rgba(255,200,255,.9);
+max-width:380px;
+box-shadow:0 0 150px rgba(255,180,255,1);
 }
 
 /* POLLITO */
@@ -142,24 +142,29 @@ width:0;height:0;border:0;
 <div class="nebulosa"></div>
 <canvas id="estrellas"></canvas>
 
-<!-- FRASES INICIALES -->
+<!-- FRASES -->
 
 <div class="escena">Hay personas que no llegan por casualidad…</div>
 <div class="escena">llegan cuando el universo decide que es el momento.</div>
 <div class="escena">Se llama Luis Alberto.</div>
 <div class="escena">Pero para mí…</div>
 <div class="escena">siempre será Pio Pio ❤️🐥</div>
-<div class="escena">No eres casualidad.</div>
-<div class="escena">Eres destino.</div>
 
-<!-- FOTO DE USTEDES -->
+<!-- TODAS LAS FOTOS UNA POR UNA -->
 
-<div class="escena">
+<div class="escena"><img src="nota.jpg"></div>
+<div class="escena"><img src="pio.jpg"></div>
+<div class="escena"><img src="pio2.jpg"></div>
+<div class="escena"><img src="pio3.jpg"></div>
+<div class="escena"><img src="pio4.jpg"></div>
+
+<!-- FOTO FINAL DE USTEDES (más lenta y especial) -->
+
+<div class="escena" id="finalFoto">
 <img src="nosotros.jpg" class="finalImagen">
 </div>
 
-<div class="escena">Y aquí…</div>
-<div class="escena">empieza nuestra historia.</div>
+<div class="escena">Y aquí empieza nuestra historia.</div>
 <div class="escena">Una historia que no nació por suerte…</div>
 <div class="escena">sino porque el universo decidió unirnos.</div>
 
@@ -168,7 +173,6 @@ width:0;height:0;border:0;
 
 <div class="pollitoFinal" id="pollito">🐥</div>
 
-<!-- Música -->
 <iframe id="musica" src="" allow="autoplay"></iframe>
 
 </div>
@@ -207,8 +211,11 @@ img.classList.add("imgActiva");
 },400);
 }
 
+/* Si es la foto final, dura más */
+let tiempo = escena.id === "finalFoto" ? 7000 : 4500;
+
 actual++;
-setTimeout(mostrarEscena,4500);
+setTimeout(mostrarEscena,tiempo);
 
 }else{
 let p=document.getElementById("pollito");
@@ -217,7 +224,7 @@ p.style.transform="translate(-50%,-220px)";
 }
 }
 
-/* ESTRELLAS ANIMADAS */
+/* ESTRELLAS */
 let canvas=document.getElementById("estrellas");
 let ctx=canvas.getContext("2d");
 
